@@ -10,12 +10,19 @@ import { columns } from './columns';
 import { Lead } from '@/constants/leads';
 
 interface ProductsClientProps {
-  data: Lead[];
+  data: any;
+  columns: any;
 }
 
 export const LeadsList: React.FC<ProductsClientProps> = ({ data }) => {
   const router = useRouter();
 
+  const dataColumns = data.map((item: any, index: number) => {
+    return {
+      id: index + 1,
+      ...item
+    };
+  });
   return (
     <>
       <div className="flex items-start justify-between">
@@ -28,7 +35,7 @@ export const LeadsList: React.FC<ProductsClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey="name" columns={columns} data={data} />
+      <DataTable searchKey="name" columns={columns} data={dataColumns} />
     </>
   );
 };
